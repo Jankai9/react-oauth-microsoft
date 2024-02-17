@@ -1,23 +1,31 @@
 import React, { useState } from 'react'
 import MicrosoftLogin from 'react-microsoft-login'
 
-export default (props) => {
-  const [tiedot, asetaTiedot] = useState(undefined)
+const CLIENT_ID = '9b3182b6-6b17-4931-8941-414c08968163'
 
-  const authHandler = (err, data) => {
+export default () => {
+  const [tiedot, asetaTiedot] = useState(undefined)
+  const lsTiedot = JSON.parse(localStorage.getItem('data'))
+  console.log('lsTiedot:', lsTiedot)
+
+  const authHandler = (err, data, msal) => {
     if (err) console.log('kirjautumisessa tuli virhe:', err)
     else {
       console.log('kirjautuminen onnistui:', data)
       asetaTiedot(data)
+      localStorage.setItem('data', JSON.stringify(data))
     }
   }
-  const CLIENT_ID = '9b3182b6-6b17-4931-8941-414c08968163'
   return (
     <div>
-      {tiedot ? (
+      {lsTiedot ? (
         <div>
-          <p>Käyttäjä on kirjautunut: {tiedot.account.name}</p>
-          <p>Nimi: {tiedot.account.username}</p>
+          <p>Käyttäjä on kirjautunut: {lsTiedot.account.name}</p>
+          <p>Nimi: {lsTiedot.account.username}</p>
+          <p>
+            Vanhentuu: {new Date(lsTiedot.expiresOn).toLocaleDateString()}:
+            {new Date(lsTiedot.expiresOn).toLocaleTimeString()}}
+          </p>
         </div>
       ) : (
         <MicrosoftLogin
