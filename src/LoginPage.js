@@ -5,7 +5,6 @@ const CLIENT_ID = '9b3182b6-6b17-4931-8941-414c08968163'
 
 export default () => {
   const [msalInstance, onMsalInstanceChange] = useState()
-  const [tiedot, asetaTiedot] = useState(undefined)
   const lsTiedot = JSON.parse(localStorage.getItem('data'))
   console.log('lsTiedot:', lsTiedot)
 
@@ -15,7 +14,6 @@ export default () => {
       console.log('kirjautuminen onnistui:', data)
       console.log('msal:', msal)
       onMsalInstanceChange(msal)
-      asetaTiedot(data)
       localStorage.setItem('data', JSON.stringify(data))
     }
   }
