@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import MicrosoftLogin from 'react-microsoft-login'
 
+// HUOM. On olemasa myös yksityiskohtaisempia kirjautumisesimerkkejä: https://www.npmjs.com/package/@azure/msal-react
+
 const CLIENT_ID = '9b3182b6-6b17-4931-8941-414c08968163'
 
 export default () => {
